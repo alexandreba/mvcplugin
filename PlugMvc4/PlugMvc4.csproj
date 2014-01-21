@@ -40,12 +40,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject.Extensions.Conventions">
-      <HintPath>..\packages\ninject.extensions.conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
-    </Reference>
     <Reference Include="Ninject.Web.Common">
       <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net40-full\Ninject.Web.Common.dll</HintPath>
     </Reference>
@@ -246,6 +240,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ninject-master\ninject-master\src\Ninject\Ninject.csproj">
+      <Project>{adf369e2-6b9e-4d56-9b82-d273ae41ec2d}</Project>
+      <Name>Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ninject.extensions.conventions-master\ninject.extensions.conventions-master\src\Ninject.Extensions.Conventions\Ninject.Extensions.Conventions.csproj">
+      <Project>{c9016f7b-68ce-46a7-80a7-a4592b6f0eac}</Project>
+      <Name>Ninject.Extensions.Conventions</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
