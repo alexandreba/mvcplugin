@@ -26,7 +26,7 @@ using Ninject.Extensions.Conventions.Syntax;
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernelWithServicesForPlugin);
+            bootstrapper.Initialize(CreateKernelWithEverything);
         }
         
         /// <summary>
@@ -56,7 +56,7 @@ using Ninject.Extensions.Conventions.Syntax;
             return kernel;
         }
 
-        private static IKernel CreateKernelWithoutPlugin()
+        private static IKernel CreateKernelWithEverything()
         {
             kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -73,8 +73,8 @@ using Ninject.Extensions.Conventions.Syntax;
         {
             //Func http://msdn.microsoft.com/fr-fr/library/vstudio/bb549151(v=vs.110).aspx
             //Action
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin");
-            kernel.Bind(a => a.FromAssembliesInPath(path).IncludingNonePublicTypes().SelectAllClasses().BindDefaultInterface());
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin3");
+            kernel.Bind(a => a.FromAssembliesInPath(path).SelectAllClasses().BindDefaultInterface());
         }
 
         public static void RegisterServicesSpecific()
