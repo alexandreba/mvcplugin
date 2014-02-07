@@ -1,6 +1,8 @@
+using Ninject.Planning.Bindings;
+
 [assembly: WebActivator.PreApplicationStartMethod(typeof(PlugMvc4.App_Start.NinjectWebCommon), "Start")]
 //[assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(PlugMvc4.App_Start.NinjectWebCommon), "Stop")]
-[assembly: WebActivator.PostApplicationStartMethod(typeof(PlugMvc4.App_Start.NinjectWebCommon), "CallMeAfterAppStart")]  
+//[assembly: WebActivator.PostApplicationStartMethod(typeof(PlugMvc4.App_Start.NinjectWebCommon), "CallMeAfterAppStart")]  
 
 namespace PlugMvc4.App_Start
 {
@@ -33,10 +35,14 @@ using Ninject.Extensions.Conventions.Syntax;
         {
             kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-            kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+            kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();            
+            RegisterServices(kernel);
+          
+
             //var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin");
             //kernel.Bind(a => a.FromAssembliesInPath(path).SelectAllClasses().BindDefaultInterface());
-            RegisterServices(kernel);
+            //var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin2");
+            //kernel.Bind(a => a.FromAssembliesInPath(path).IncludingNonePublicTypes().SelectAllClasses().BindDefaultInterface()); ;   
             return kernel;
         }
 
@@ -86,7 +92,7 @@ using Ninject.Extensions.Conventions.Syntax;
             kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-            RegisterServices(kernel);
+            //RegisterServices(kernel);
             return kernel;
         }
 
@@ -97,18 +103,18 @@ using Ninject.Extensions.Conventions.Syntax;
         private static void RegisterServices(IKernel kernel)
         {
             //Func http://msdn.microsoft.com/fr-fr/library/vstudio/bb549151(v=vs.110).aspx
-            //Action
+            //Action            
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin");
-            kernel.Bind(a => a.FromAssembliesInPath(path).SelectAllClasses().BindDefaultInterface());
+            kernel.Bind(a => a.FromAssembliesInPath(path).SelectAllClasses().BindDefaultInterface());  
+
+            //var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin2");
+            //kernel.Bind(a => a.FromAssembliesInPath(path).SelectAllClasses().BindDefaultInterface());   
         }
 
         public static void RegisterServicesSpecific()
         {
-            //Func http://msdn.microsoft.com/fr-fr/library/vstudio/bb549151(v=vs.110).aspx
-            //Action
-            var path = @"C:\temp\PluginASPNET\PlugMvc4\PlugMvc4\bin2";
-            //.IncludingNonePublicTypes() 
-            kernel.Bind(a => a.FromAssembliesInPath(path).IncludingNonePublicTypes().SelectAllClasses().BindDefaultInterface());            
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin");
+            kernel.Bind(a => a.FromAssembliesInPath(path).SelectAllClasses().BindDefaultInterface());  
         }    
 
         private static void CallOne(Ninject.Extensions.Conventions.Syntax.IFromSyntax iFromSyntax){

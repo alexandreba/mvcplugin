@@ -1,4 +1,5 @@
-﻿using PlugMvc4.App_Start;
+﻿using System.Web.Routing;
+using PlugMvc4.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace PlugMvc4.Controllers
         // GET: /Home/
 
         public ActionResult Index()
-        {            
+        {           
             return View();
         }
 
@@ -21,7 +22,7 @@ namespace PlugMvc4.Controllers
         {
             try
             {
-                NinjectWebCommon.RegisterServicesSpecific();
+                NinjectWebCommon.RegisterServicesSpecific();                
             }
             catch (Exception ex)
             {                
